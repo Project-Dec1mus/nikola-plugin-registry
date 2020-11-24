@@ -42,7 +42,7 @@
     let apiRouter = express.Router();
     const apiVersionFolderMapping = ["api/v0"];
 
-    let routerList = await Promise.all(apiVersionFolderMapping.map(async function (version) {
+    let routerList = await Promise.all(apiVersionFolderMapping.map(async function (version, i) {
         let router = express.Router();
         let apiList = await fs.promises.readdir(path.join(__dirname, version), { withFileTypes: true, encoding: "utf8" });
         apiList = apiList
@@ -50,15 +50,17 @@
             .map(y => path.parse(y.name).name);
 
         for (let api of apiList) {
-            router.use(`/${api}/*`, await require(path.join(__dirname, version, api))(__GLOBAL));
+            console.log(`Loading APIv${i}:${api}`);
+            router.use(`/${api}`, await require(path.join(__dirname, version, api))(__GLOBAL));
         }
         router.use(function (_, res) {
-            return res.status(404).json({ error: "API not found. Please take a look at API documentation on https://github.com/Project-Dec1mus/nikola/blob/master/ACI-API-DOCS.md" })
+            return res.status(404).json({ error: "API not found. Please take a look at API documentation on https://github.com/Project-Dec1mus/nikola-plugin-registry" })
         });
         return router;
     }));
 
-    routerList.forEach((r, i) => apiRouter.all(`/v${i}`, r));
+    routerList.forEach((r, i) => apiRouter.use(`/v${i}`, r));
+    apiRouter.use("/", routerList[routerList.length - 1]);
     app.use("/api", apiRouter);
 
     // Listen.
