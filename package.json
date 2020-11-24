@@ -1,0 +1,29 @@
+{
+  "name": "nikola-plugin-registry",
+  "version": "1.0.0-alpha.0",
+  "description": "A program to run a server specialized in storing and sharing Nikola's plugins.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Project-Dec1mus/nikola-plugin-registry.git"
+  },
+  "keywords": [
+    "registry",
+    "nikola",
+    "dec1mus"
+  ],
+  "author": "BadAimWeeb + TeamDec1mus",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Project-Dec1mus/nikola-plugin-registry/issues"
+  },
+  "homepage": "https://github.com/Project-Dec1mus/nikola-plugin-registry#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "ipfs-core": "^0.2.1"
+  }
+}
