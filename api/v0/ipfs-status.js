@@ -1,10 +1,10 @@
 module.exports = async function g(__GLOBAL) {
-    return async function resolver(req, res, next) {
-        if (!__GLOBAL.ipfs) {
-            __GLOBAL.ipfs = new __GLOBAL.ItemResolvable();
-            __GLOBAL.ipfs.resolve(await (require("../../app/createIPFS")()));
-        }
+    if (!__GLOBAL.ipfs) {
+        __GLOBAL.ipfs = new __GLOBAL.ItemResolvable();
+        __GLOBAL.ipfs.resolve(await (require("../../app/createIPFS")()));
+    }
 
+    return async function resolver(_, res) {
         let ipfs = await __GLOBAL.ipfs;
 
         let nodeList = (await global.ipfsNode.bootstrap.list()).Peers;

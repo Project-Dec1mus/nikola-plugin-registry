@@ -1,4 +1,7 @@
 (async () => {
+    let fs = require("fs");
+    let path = require("path");
+
     let dotenv = require("dotenv");
     dotenv.config();
 
@@ -47,7 +50,7 @@
             .map(y => path.parse(y.name).name);
 
         for (let api of apiList) {
-            router.all(`/${api}/*`, require(path.join(__dirname, version, api))(__GLOBAL));
+            router.use(`/${api}/*`, await require(path.join(__dirname, version, api))(__GLOBAL));
         }
         router.use(function (_, res) {
             return res.status(404).json({ error: "API not found. Please take a look at API documentation on https://github.com/Project-Dec1mus/nikola/blob/master/ACI-API-DOCS.md" })

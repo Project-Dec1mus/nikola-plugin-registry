@@ -4,6 +4,7 @@
   "description": "A program to run a server specialized in storing and sharing Nikola's plugins.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
