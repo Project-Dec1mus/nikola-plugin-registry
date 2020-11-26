@@ -40,6 +40,8 @@
 
     // API building
     let apiRouter = express.Router();
+    router.use(express.json());
+    router.use(express.urlencoded());
     const apiVersionFolderMapping = ["api/v0"];
 
     let routerList = await Promise.all(apiVersionFolderMapping.map(async function (version, i) {
@@ -54,7 +56,7 @@
             router.use(`/${api}`, await require(path.join(__dirname, version, api))(__GLOBAL));
         }
         router.use(function (_, res) {
-            return res.status(404).json({ error: "API not found. Please take a look at API documentation on https://github.com/Project-Dec1mus/nikola-plugin-registry" })
+            return res.status(404).json({ error: "API not found. Please take a look at API documentation at https://github.com/Project-Dec1mus/nikola-plugin-registry" })
         });
         return router;
     }));
